@@ -1,7 +1,9 @@
 <template>
   <v-container fluid>
-    <h1 style="color:#79597B ">Books written in Arabic by Women and translated to English</h1>
-    <h3 style="color:#79597B ">by Nadia El Mouldi</h3>
+    
+    <h1 style="color: #79597b">
+      Books written in Arabic by Women and translated to English
+    </h1><h3 style="color: #79597b">by Nadia El Mouldi</h3>
     <v-layout>
       <v-col>
         <canvas id="network" width="1200" height="1000"></canvas>
@@ -16,8 +18,7 @@
           <v-card-title>How to read the network?</v-card-title>
           <v-card-text
             >Each node represents an entity: an author, a translator or a
-            publisher
-            The links between the nodes represent a book that has been
+            publisher The links between the nodes represent a book that has been
             translated. You can drag and drop nodes to see clearly.</v-card-text
           >
           <v-timeline align-top dense>
@@ -45,11 +46,28 @@
           </v-timeline>
           <v-card-title id="tooltip"></v-card-title>
           <!-- <v-autocomplete :items="this.books"></v-autocomplete> -->
-          <v-card-text>The data was collected by me over the course of a few months. I have consulted multiple sources online and consolidated it into one database.</v-card-text>
+          <v-card-text
+            >The data was collected by me over the course of a few months. I
+            have consulted multiple sources online and consolidated it into one
+            database.</v-card-text
+          >
           <v-card-text
             >To be added: a way to hover over a link to see the book
             name</v-card-text
           >
+            <v-card-title>Why this network?</v-card-title>
+          <v-card-text
+            >The goal of this project is to begin to think through the networks of influence involved in the process of translating women authors from Arabic into English, making it possible to think about translation as a pattern as opposed to a case-by-case situation. This visualization
+            is a part of a larger project that looks the translations of Arab women writers and explores two main questions: The first is whether the oeuvres written in Arabic by women writers that are chosen for translation are selected based on their propensity to reinforce the stereotypical representation of Arab women in the American social sphere, making such books chosen for translation more palatable for an American audience. 
+            The second is whether these books when translated can be perceived as sociological artifacts that reflect the state of Arab countries in a certain time space by the reader, rather than a work of fiction, which they are most of the time.  </v-card-text
+          >
+          <v-card-text>
+            The initial phase of data collection has been completed. That allowed for this network visualization to be the next step of development as it clearly shows the relationship between entities involved in the translation process. It will allow to dig deeper into the relation between each and allowing me to ask more questions about indiviual publishers and translators. By examining the clusters formed in this 
+            network, I hope to uncover patterns in the translation of women from Arabic.
+          </v-card-text>
+           <v-card-text>
+            this website is built with Vuejs and the Javascript d3 library, using the d3 force simulation package.
+          </v-card-text>
         </v-card>
       </v-col>
     </v-layout>
@@ -111,11 +129,7 @@ export default {
     network_data.forEach(function (d, i) {
       data.links.push(d);
     });
-    // canvas.width = window.innerWidth;
-    // canvas.height = window.innerHeight
     var canvas = d3.select("#network"),
-      // width = canvas.attr("width"),
-      // height = canvas.attr("height"),
       width = window.innerWidth,
       height = window.innerHeight,
       r = height / 80,
@@ -169,23 +183,19 @@ export default {
       cont.clearRect(0, 0, width, height);
 
       cont.beginPath();
-      // cont.globalAlpha = 0.2
       cont.strokesStyle = "#aaa";
       data.links.forEach(drawLink);
       cont.stroke();
 
       cont.beginPath();
       data.nodes.forEach(drawNode);
-      // cont.globalAlpha = 1.0
       cont.fill();
 
       if (closeNode) {
         cont.beginPath();
         drawNode(closeNode);
-
         cont.fillStyle = "#FFC6D9";
         cont.fill();
-        // cont.strokeStyle = "#FFC6D9";
         cont.stroke();
         d3.select("#tooltip")
           .style("opacity", 0.8)
@@ -202,7 +212,6 @@ export default {
     }
 
     let closeNode;
-    console.log(data);
 
     canvas.on("mousemove", function (event) {
       var p = d3.pointer(event);
@@ -210,15 +219,17 @@ export default {
       update();
     });
 
+
+    filter("Judgment Day")
+
     function filter(book_name) {
       console.log(book_name);
-      data.links.forEach(function (n) {
-        if (n.edge == book_name) {
-          data.links = data.links.splice(1, 7);
-          data.nodes = data.nodes.splice(1, 40);
-        }
-        console.log(data.links);
-      });
+
+      data.links.filter(data.links.edge == book_name);
+      // data.nodes.filter(node)
+
+      console.log(data.links);
+
       //   if (d) {
       //     n.filtered = false;
       //     graph.nodes.push($.extend(true, {}, n));
@@ -231,24 +242,6 @@ export default {
       //     });
       //   }
       // });
-    }
-
-    function dragstarted() {
-      console.log(d3.event);
-      if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-      d3.event.subject.fx = d3.event.subject.x;
-      d3.event.subject.fy = d3.event.subject.y;
-    }
-
-    function dragged() {
-      d3.event.subject.fx = d3.event.x;
-      d3.event.subject.fy = d3.event.y;
-    }
-
-    function dragended() {
-      if (!d3.event.active) simulation.alphaTarget(0);
-      d3.event.subject.fx = null;
-      d3.event.subject.fy = null;
     }
 
     function dragsubject(event) {
@@ -308,6 +301,7 @@ canvas {
   position: absolute;
   width: 1200;
   height: 1200;
+
 }
 
 .v-col {

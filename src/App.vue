@@ -1,9 +1,9 @@
 <template>
   <v-app dark>
     <!-- <v-app-bar app color="black" dark> -->
-      <v-main>
-        <NetworkGraph />
-      </v-main>
+    <v-main>
+      <NetworkGraph />
+    </v-main>
     <!-- </v-app-bar> -->
   </v-app>
 </template>

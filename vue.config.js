@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: '',
+  publicPath: '/writer-network/',
   lintOnSave: false,
   chainWebpack: config => {
     // csv loader
