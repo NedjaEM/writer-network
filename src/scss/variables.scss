@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@500&family=Montserrat&display=swap');
+$heading-font-family: 'Inknut Antiqua';
+$body-font-family: 'Montserrat';
+$material-light: (
+  'background': "#fff7ae"
+);
+@import '~vuetify/src/styles/styles.sass';
